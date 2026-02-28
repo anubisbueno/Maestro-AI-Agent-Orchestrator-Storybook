@@ -1,0 +1,207 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+/* ============================================
+   1. GLOBAL TOKENS — Brand values (TeamCulture)
+   ============================================ */
+
+@theme {
+  --color-brand-black: #1b1b1b;
+  --color-brand-cream: #eeede9;
+  --color-brand-red: #7b0000;
+  --color-brand-gold: #a98d45;
+  --color-brand-navy: #131d21;
+  --color-brand-border: #d4d3cf;
+
+  /* Semantic tokens */
+  --color-surface-primary: #eeede9;
+  --color-surface-dark: #131d21;
+  --color-text-primary: #1b1b1b;
+  --color-text-secondary: rgba(27, 27, 27, 0.7);
+  --color-accent-cta: #7b0000;
+  --color-accent-gold: #a98d45;
+
+  /* Status tokens */
+  --color-status-online: oklch(0.75 0.15 145);
+  --color-status-offline: oklch(0.55 0.02 260);
+  --color-status-busy: oklch(0.75 0.15 85);
+  --color-status-error: oklch(0.65 0.2 25);
+
+  /* Typography */
+  --font-display: "Bree Serif", serif;
+  --font-body: "Inter", "Geist", sans-serif;
+  --font-accent: "Playfair Display", serif;
+  --font-mono: "Geist Mono", "JetBrains Mono", monospace;
+
+  /* Spacing scale */
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+  --spacing-2xl: 3rem;
+
+  /* Border radius — brand-only (shadcn overrides sm/md/lg below) */
+  --radius-full: 9999px;
+
+  /* Breakpoints */
+  --breakpoint-sm: 640px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
+
+  /* Container max-widths */
+  --container-sm: 640px;
+  --container-md: 768px;
+  --container-lg: 1024px;
+  --container-xl: 1280px;
+}
+
+/* ============================================
+   2. SHADCN/UI VARIABLE MAPPING
+   ============================================ */
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --radius-4xl: calc(var(--radius) + 16px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+/* ============================================
+   3. COLOR SCHEME — TeamCulture brand mapping
+   ============================================ */
+
+:root {
+  --radius: 0.625rem;
+  /* Primary = brand-red */
+  --primary: oklch(0.366 0.15 29.2);
+  --primary-foreground: oklch(0.946 0.005 95.0);
+  /* Secondary = brand-gold tint */
+  --secondary: oklch(0.92 0.03 88.3);
+  --secondary-foreground: oklch(0.222 0.0 0);
+  /* Background = brand-cream */
+  --background: oklch(0.946 0.005 95.0);
+  --foreground: oklch(0.222 0.0 0);
+  /* Card = white */
+  --card: oklch(1.0 0.0 0);
+  --card-foreground: oklch(0.222 0.0 0);
+  /* Popover = white */
+  --popover: oklch(1.0 0.0 0);
+  --popover-foreground: oklch(0.222 0.0 0);
+  /* Muted = brand-border area */
+  --muted: oklch(0.92 0.003 95.0);
+  --muted-foreground: oklch(0.5 0.0 0);
+  /* Accent = light cream */
+  --accent: oklch(0.92 0.003 95.0);
+  --accent-foreground: oklch(0.222 0.0 0);
+  /* Destructive = status-error */
+  --destructive: oklch(0.65 0.2 25);
+  /* Border/Input = brand-border */
+  --border: oklch(0.867 0.005 95.0);
+  --input: oklch(0.867 0.005 95.0);
+  /* Ring = brand-red */
+  --ring: oklch(0.366 0.15 29.2);
+  /* Chart colors — brand-inspired */
+  --chart-1: oklch(0.366 0.15 29.2);
+  --chart-2: oklch(0.654 0.097 88.3);
+  --chart-3: oklch(0.223 0.016 224.6);
+  --chart-4: oklch(0.75 0.15 145);
+  --chart-5: oklch(0.75 0.15 85);
+  /* Sidebar = brand-navy */
+  --sidebar: oklch(0.223 0.016 224.6);
+  --sidebar-foreground: oklch(0.946 0.005 95.0);
+  --sidebar-primary: oklch(0.366 0.15 29.2);
+  --sidebar-primary-foreground: oklch(0.946 0.005 95.0);
+  --sidebar-accent: oklch(0.28 0.02 224.6);
+  --sidebar-accent-foreground: oklch(0.946 0.005 95.0);
+  --sidebar-border: oklch(0.3 0.015 224.6);
+  --sidebar-ring: oklch(0.366 0.15 29.2);
+}
+
+.dark {
+  --primary: oklch(0.5 0.16 29.2);
+  --primary-foreground: oklch(0.946 0.005 95.0);
+  --secondary: oklch(0.3 0.03 88.3);
+  --secondary-foreground: oklch(0.946 0.005 95.0);
+  --background: oklch(0.185 0.0 0);
+  --foreground: oklch(0.946 0.005 95.0);
+  --card: oklch(0.222 0.0 0);
+  --card-foreground: oklch(0.946 0.005 95.0);
+  --popover: oklch(0.222 0.0 0);
+  --popover-foreground: oklch(0.946 0.005 95.0);
+  --muted: oklch(0.3 0.0 0);
+  --muted-foreground: oklch(0.65 0.0 0);
+  --accent: oklch(0.3 0.0 0);
+  --accent-foreground: oklch(0.946 0.005 95.0);
+  --destructive: oklch(0.7 0.19 25);
+  --border: oklch(1.0 0.0 0 / 10%);
+  --input: oklch(1.0 0.0 0 / 15%);
+  --ring: oklch(0.5 0.16 29.2);
+  --chart-1: oklch(0.5 0.16 29.2);
+  --chart-2: oklch(0.654 0.097 88.3);
+  --chart-3: oklch(0.4 0.02 224.6);
+  --chart-4: oklch(0.75 0.15 145);
+  --chart-5: oklch(0.75 0.15 85);
+  --sidebar: oklch(0.185 0.015 224.6);
+  --sidebar-foreground: oklch(0.946 0.005 95.0);
+  --sidebar-primary: oklch(0.5 0.16 29.2);
+  --sidebar-primary-foreground: oklch(0.946 0.005 95.0);
+  --sidebar-accent: oklch(0.26 0.015 224.6);
+  --sidebar-accent-foreground: oklch(0.946 0.005 95.0);
+  --sidebar-border: oklch(1.0 0.0 0 / 10%);
+  --sidebar-ring: oklch(0.5 0.16 29.2);
+}
+
+/* ============================================
+   4. BASE STYLES
+   ============================================ */
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
