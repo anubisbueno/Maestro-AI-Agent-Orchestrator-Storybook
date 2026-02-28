@@ -1,4 +1,4 @@
-import { Button } from "@/shared/components/atoms/Button";
+import { Button } from "../../shared/components/atoms/Button";
 import type { Meta, StoryObj } from "@storybook/react";
 import {
   Sheet,

@@ -1,4 +1,4 @@
-import { Tooltip } from "@/shared/components/atoms/Tooltip";
+import { Tooltip } from "../Tooltip";
 import { render, screen } from "@testing-library/react";
 
 describe("Tooltip", () => {

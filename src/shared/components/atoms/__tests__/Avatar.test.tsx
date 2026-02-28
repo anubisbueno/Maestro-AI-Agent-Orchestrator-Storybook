@@ -1,4 +1,4 @@
-import { Avatar } from "@/shared/components/atoms/Avatar";
+import { Avatar } from "../Avatar";
 import { render, screen } from "@testing-library/react";
 
 describe("Avatar", () => {

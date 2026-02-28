@@ -1,4 +1,4 @@
-import { Icon } from "@/shared/components/atoms/Icon";
+import { Icon } from "../Icon";
 import { render, screen } from "@testing-library/react";
 import { Home } from "lucide-react";
 

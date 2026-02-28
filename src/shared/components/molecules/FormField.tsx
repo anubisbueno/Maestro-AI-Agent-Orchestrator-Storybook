@@ -1,5 +1,5 @@
-import { cn } from "@/lib/utils";
-import { Input } from "@/shared/components/atoms/Input";
+import { cn } from "../../../lib/utils";
+import { Input } from "../atoms/Input";
 import { type InputHTMLAttributes, forwardRef, useId } from "react";
 
 interface FormFieldProps extends InputHTMLAttributes<HTMLInputElement> {

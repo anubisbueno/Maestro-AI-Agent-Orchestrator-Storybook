@@ -1,4 +1,4 @@
-import { Button } from "@/shared/components/atoms/Button";
+import { Button } from "../Button";
 import { render, screen } from "@testing-library/react";
 import { createRef } from "react";
 

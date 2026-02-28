@@ -1,4 +1,4 @@
-import { Badge } from "@/shared/components/atoms/Badge";
+import { Badge } from "../Badge";
 import { render, screen } from "@testing-library/react";
 
 describe("Badge", () => {

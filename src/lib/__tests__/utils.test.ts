@@ -1,4 +1,4 @@
-import { cn } from "@/lib/utils";
+import { cn } from "../utils";
 
 describe("cn", () => {
   it("merges multiple classes", () => {

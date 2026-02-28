@@ -1,4 +1,4 @@
-import { StatusIndicator } from "@/shared/components/molecules/StatusIndicator";
+import { StatusIndicator } from "../StatusIndicator";
 import { render, screen } from "@testing-library/react";
 
 describe("StatusIndicator", () => {

@@ -1,4 +1,4 @@
-import { Button as ShadcnButton, type buttonVariants } from "@/components/ui/button";
+import { Button as ShadcnButton, type buttonVariants } from "../../../components/ui/button";
 import type { VariantProps } from "class-variance-authority";
 
 const VARIANT_MAP = { primary: "default" } as const;

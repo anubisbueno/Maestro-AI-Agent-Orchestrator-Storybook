@@ -1,4 +1,4 @@
-import { Input } from "@/shared/components/atoms/Input";
+import { Input } from "../Input";
 import { render, screen } from "@testing-library/react";
 import { createRef } from "react";
 

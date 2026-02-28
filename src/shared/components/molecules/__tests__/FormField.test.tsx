@@ -1,4 +1,4 @@
-import { FormField } from "@/shared/components/molecules/FormField";
+import { FormField } from "../FormField";
 import { render, screen } from "@testing-library/react";
 
 describe("FormField", () => {

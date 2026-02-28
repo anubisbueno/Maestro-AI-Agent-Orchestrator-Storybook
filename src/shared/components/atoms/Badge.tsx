@@ -1,5 +1,5 @@
-import { Badge as ShadcnBadge, type badgeVariants } from "@/components/ui/badge";
-import { cn } from "@/lib/utils";
+import { Badge as ShadcnBadge, type badgeVariants } from "../../../components/ui/badge";
+import { cn } from "../../../lib/utils";
 import type { VariantProps } from "class-variance-authority";
 
 const statusStyles = {

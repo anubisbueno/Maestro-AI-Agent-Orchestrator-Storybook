@@ -1,5 +1,5 @@
-import { cn } from "@/lib/utils";
-import { Icon } from "@/shared/components/atoms/Icon";
+import { cn } from "../../../lib/utils";
+import { Icon } from "../atoms/Icon";
 import type { LucideIcon } from "lucide-react";
 
 interface EmptyStateProps {

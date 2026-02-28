@@ -1,4 +1,4 @@
-import { Badge } from "@/shared/components/atoms/Badge";
+import { Badge } from "../../shared/components/atoms/Badge";
 import type { Meta, StoryObj } from "@storybook/react";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "./table";
 

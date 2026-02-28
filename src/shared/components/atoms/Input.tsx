@@ -1,5 +1,5 @@
-import { Input as ShadcnInput } from "@/components/ui/input";
-import { cn } from "@/lib/utils";
+import { Input as ShadcnInput } from "../../../components/ui/input";
+import { cn } from "../../../lib/utils";
 import { forwardRef } from "react";
 
 interface InputProps extends React.ComponentProps<typeof ShadcnInput> {

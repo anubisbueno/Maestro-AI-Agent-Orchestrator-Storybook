@@ -1,4 +1,4 @@
-import { Skeleton } from "@/shared/components/atoms/Skeleton";
+import { Skeleton } from "../Skeleton";
 import { render, screen } from "@testing-library/react";
 
 describe("Skeleton", () => {

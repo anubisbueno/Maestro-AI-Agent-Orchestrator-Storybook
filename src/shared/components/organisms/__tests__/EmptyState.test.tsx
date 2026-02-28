@@ -1,4 +1,4 @@
-import { EmptyState } from "@/shared/components/organisms/EmptyState";
+import { EmptyState } from "../EmptyState";
 import { render, screen } from "@testing-library/react";
 import { Inbox } from "lucide-react";
 

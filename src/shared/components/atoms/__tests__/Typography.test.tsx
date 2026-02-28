@@ -1,4 +1,4 @@
-import { H1, H2, H3, Small, Text } from "@/shared/components/atoms/Typography";
+import { H1, H2, H3, Small, Text } from "../Typography";
 import { render, screen } from "@testing-library/react";
 
 describe("Typography", () => {
