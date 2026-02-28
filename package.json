@@ -14,8 +14,13 @@
     "test": "vitest",
     "test:run": "vitest run",
     "test:coverage": "vitest run --coverage",
-    "prepare": "husky"
+    "prepare": "husky || true"
   },
+  "files": [
+    "src",
+    "package.json",
+    "README.md"
+  ],
   "lint-staged": {
     "*.{ts,tsx}": [
       "biome check --write",
