@@ -61,6 +61,7 @@ reviews:
         - Cover all variants: default, hover, focus, disabled, error, loading
         - Use args for interactive controls
         - Document accessibility features in story
+        - CRITICAL: If a new *.stories.tsx is added or modified, verify that a corresponding *.test.tsx exists in __tests__/ for the same component. Flag as blocking if test file is missing. Rule: "Story sem teste = componente nao entregue" (kanban #19).
 
     - path: ".github/workflows/**"
       instructions: |
