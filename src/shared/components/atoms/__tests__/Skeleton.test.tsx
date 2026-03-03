@@ -1,27 +1,54 @@
-import { Skeleton } from "../Skeleton";
 import { render, screen } from "@testing-library/react";
+import { Skeleton } from "../Skeleton";
 
 describe("Skeleton", () => {
-  it("has role status", () => {
-    render(<Skeleton />);
-    expect(screen.getByRole("status")).toBeDefined();
+  describe("accessibility", () => {
+    it("has role status for screen readers", () => {
+      render(<Skeleton />);
+      expect(screen.getByRole("status")).toBeInTheDocument();
+    });
+
+    it("has aria-label 'Carregando...' in Portuguese", () => {
+      render(<Skeleton />);
+      expect(screen.getByRole("status")).toHaveAttribute("aria-label", "Carregando...");
+    });
+
+    it("is announced as loading content by assistive technology", () => {
+      render(<Skeleton />);
+      expect(screen.getByLabelText("Carregando...")).toBeInTheDocument();
+    });
   });
 
-  it("has aria-label Carregando...", () => {
-    render(<Skeleton />);
-    const skeleton = screen.getByRole("status");
-    expect(skeleton.getAttribute("aria-label")).toBe("Carregando...");
+  describe("styling", () => {
+    it("has animate-pulse class for loading animation", () => {
+      render(<Skeleton />);
+      expect(screen.getByRole("status")).toHaveClass("animate-pulse");
+    });
+
+    it("has data-slot skeleton from shadcn base", () => {
+      render(<Skeleton />);
+      expect(screen.getByRole("status")).toHaveAttribute("data-slot", "skeleton");
+    });
   });
 
-  it("has class animate-pulse", () => {
-    render(<Skeleton />);
-    const skeleton = screen.getByRole("status");
-    expect(skeleton.className).toContain("animate-pulse");
+  describe("className passthrough", () => {
+    it("applies custom className", () => {
+      render(<Skeleton className="h-4 w-full" />);
+      const skeleton = screen.getByRole("status");
+      expect(skeleton).toHaveClass("h-4");
+      expect(skeleton).toHaveClass("w-full");
+    });
+
+    it("preserves base classes when custom className is added", () => {
+      render(<Skeleton className="h-4" />);
+      expect(screen.getByRole("status")).toHaveClass("animate-pulse");
+    });
   });
 
-  it("applies custom className", () => {
-    render(<Skeleton className="custom-skeleton" />);
-    const skeleton = screen.getByRole("status");
-    expect(skeleton.className).toContain("custom-skeleton");
+  describe("HTML attributes passthrough", () => {
+    it("passes through additional props", () => {
+      render(<Skeleton data-testid="loading-skeleton" />);
+      expect(screen.getByTestId("loading-skeleton")).toBeInTheDocument();
+    });
   });
 });

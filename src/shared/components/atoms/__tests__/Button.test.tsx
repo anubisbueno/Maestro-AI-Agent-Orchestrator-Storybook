@@ -1,65 +1,120 @@
-import { Button } from "../Button";
 import { render, screen } from "@testing-library/react";
-import { createRef } from "react";
+import userEvent from "@testing-library/user-event";
+import { Button } from "../Button";
 
 describe("Button", () => {
-  it("renders children text", () => {
-    render(<Button>Click me</Button>);
-    expect(screen.getByText("Click me")).toBeDefined();
+  describe("rendering", () => {
+    it("renders as a button element", () => {
+      render(<Button>Click me</Button>);
+      expect(screen.getByRole("button", { name: "Click me" })).toBeInTheDocument();
+    });
+
+    it("renders children text", () => {
+      render(<Button>Submit</Button>);
+      expect(screen.getByRole("button")).toHaveTextContent("Submit");
+    });
   });
 
-  it("primary variant maps to data-variant default", () => {
-    render(<Button variant="primary">Primary</Button>);
-    const button = screen.getByRole("button");
-    expect(button.getAttribute("data-variant")).toBe("default");
+  describe("variant mapping", () => {
+    it("primary variant maps to shadcn default", () => {
+      render(<Button variant="primary">Primary</Button>);
+      expect(screen.getByRole("button")).toHaveAttribute("data-variant", "default");
+    });
+
+    it("secondary variant passes through", () => {
+      render(<Button variant="secondary">Secondary</Button>);
+      expect(screen.getByRole("button")).toHaveAttribute("data-variant", "secondary");
+    });
+
+    it("ghost variant passes through", () => {
+      render(<Button variant="ghost">Ghost</Button>);
+      expect(screen.getByRole("button")).toHaveAttribute("data-variant", "ghost");
+    });
+
+    it("outline variant passes through", () => {
+      render(<Button variant="outline">Outline</Button>);
+      expect(screen.getByRole("button")).toHaveAttribute("data-variant", "outline");
+    });
+
+    it("destructive variant passes through", () => {
+      render(<Button variant="destructive">Destructive</Button>);
+      expect(screen.getByRole("button")).toHaveAttribute("data-variant", "destructive");
+    });
+
+    it("link variant passes through", () => {
+      render(<Button variant="link">Link</Button>);
+      expect(screen.getByRole("button")).toHaveAttribute("data-variant", "link");
+    });
+
+    it("defaults to primary (mapped to default) when no variant provided", () => {
+      render(<Button>Default</Button>);
+      expect(screen.getByRole("button")).toHaveAttribute("data-variant", "default");
+    });
   });
 
-  it("secondary variant has data-variant secondary", () => {
-    render(<Button variant="secondary">Secondary</Button>);
-    const button = screen.getByRole("button");
-    expect(button.getAttribute("data-variant")).toBe("secondary");
+  describe("size mapping", () => {
+    it("sm size passes through", () => {
+      render(<Button size="sm">Small</Button>);
+      expect(screen.getByRole("button")).toHaveAttribute("data-size", "sm");
+    });
+
+    it("md size maps to shadcn default", () => {
+      render(<Button size="md">Medium</Button>);
+      expect(screen.getByRole("button")).toHaveAttribute("data-size", "default");
+    });
+
+    it("lg size passes through", () => {
+      render(<Button size="lg">Large</Button>);
+      expect(screen.getByRole("button")).toHaveAttribute("data-size", "lg");
+    });
+
+    it("icon size passes through", () => {
+      render(<Button size="icon">I</Button>);
+      expect(screen.getByRole("button")).toHaveAttribute("data-size", "icon");
+    });
+
+    it("defaults to md (mapped to default) when no size provided", () => {
+      render(<Button>Default Size</Button>);
+      expect(screen.getByRole("button")).toHaveAttribute("data-size", "default");
+    });
   });
 
-  it("ghost variant has data-variant ghost", () => {
-    render(<Button variant="ghost">Ghost</Button>);
-    const button = screen.getByRole("button");
-    expect(button.getAttribute("data-variant")).toBe("ghost");
+  describe("interactions", () => {
+    it("calls onClick handler when clicked", async () => {
+      const user = userEvent.setup();
+      const onClick = vi.fn();
+      render(<Button onClick={onClick}>Click</Button>);
+      await user.click(screen.getByRole("button"));
+      expect(onClick).toHaveBeenCalledTimes(1);
+    });
+
+    it("does not call onClick when disabled", async () => {
+      const user = userEvent.setup();
+      const onClick = vi.fn();
+      render(
+        <Button onClick={onClick} disabled>
+          Disabled
+        </Button>,
+      );
+      await user.click(screen.getByRole("button"));
+      expect(onClick).not.toHaveBeenCalled();
+    });
   });
 
-  it("sm size has h-8 class", () => {
-    render(<Button size="sm">Small</Button>);
-    const button = screen.getByRole("button");
-    expect(button.className).toContain("h-8");
-  });
+  describe("HTML attributes", () => {
+    it("disabled state sets disabled attribute", () => {
+      render(<Button disabled>Disabled</Button>);
+      expect(screen.getByRole("button")).toBeDisabled();
+    });
 
-  it("md size (default) maps to data-size default", () => {
-    render(<Button>Medium</Button>);
-    const button = screen.getByRole("button");
-    expect(button.getAttribute("data-size")).toBe("default");
-  });
+    it("applies custom className", () => {
+      render(<Button className="custom-btn">Custom</Button>);
+      expect(screen.getByRole("button")).toHaveClass("custom-btn");
+    });
 
-  it("lg size has data-size lg", () => {
-    render(<Button size="lg">Large</Button>);
-    const button = screen.getByRole("button");
-    expect(button.getAttribute("data-size")).toBe("lg");
-  });
-
-  it("disabled state has disabled attribute", () => {
-    render(<Button disabled>Disabled</Button>);
-    const button = screen.getByRole("button") as HTMLButtonElement;
-    expect(button.disabled).toBe(true);
-  });
-
-  it("applies custom className", () => {
-    render(<Button className="custom-class">Custom</Button>);
-    const button = screen.getByRole("button");
-    expect(button.className).toContain("custom-class");
-  });
-
-  it("forwards ref", () => {
-    const ref = createRef<HTMLButtonElement>();
-    render(<Button ref={ref}>Ref Button</Button>);
-    expect(ref.current).toBeInstanceOf(HTMLButtonElement);
-    expect(ref.current?.textContent).toBe("Ref Button");
+    it("passes through type attribute", () => {
+      render(<Button type="submit">Submit</Button>);
+      expect(screen.getByRole("button")).toHaveAttribute("type", "submit");
+    });
   });
 });

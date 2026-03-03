@@ -1,41 +1,67 @@
-import { Icon } from "../Icon";
 import { render, screen } from "@testing-library/react";
-import { Home } from "lucide-react";
+import { Home, Settings } from "lucide-react";
+import { Icon } from "../Icon";
 
 describe("Icon", () => {
-  it("renders an SVG element", () => {
-    const { container } = render(<Icon icon={Home} />);
-    const svg = container.querySelector("svg");
-    expect(svg).toBeDefined();
+  describe("rendering", () => {
+    it("renders an SVG element", () => {
+      const { container } = render(<Icon icon={Home} />);
+      expect(container.querySelector("svg")).toBeInTheDocument();
+    });
+
+    it("renders different Lucide icons", () => {
+      const { container } = render(<Icon icon={Settings} />);
+      expect(container.querySelector("svg")).toBeInTheDocument();
+    });
   });
 
-  it("sm size has size-4 class", () => {
-    const { container } = render(<Icon icon={Home} size="sm" />);
-    const svg = container.querySelector("svg");
-    expect(svg?.className).toContain("size-4");
+  describe("sizes", () => {
+    it("sm size applies size-4 class", () => {
+      const { container } = render(<Icon icon={Home} size="sm" />);
+      expect(container.querySelector("svg")).toHaveClass("size-4");
+    });
+
+    it("md size (default) applies size-5 class", () => {
+      const { container } = render(<Icon icon={Home} />);
+      expect(container.querySelector("svg")).toHaveClass("size-5");
+    });
+
+    it("lg size applies size-6 class", () => {
+      const { container } = render(<Icon icon={Home} size="lg" />);
+      expect(container.querySelector("svg")).toHaveClass("size-6");
+    });
   });
 
-  it("md size (default) has size-5 class", () => {
-    const { container } = render(<Icon icon={Home} />);
-    const svg = container.querySelector("svg");
-    expect(svg?.className).toContain("size-5");
+  describe("accessibility", () => {
+    it("is aria-hidden when no label is provided (decorative)", () => {
+      const { container } = render(<Icon icon={Home} />);
+      expect(container.querySelector("svg")).toHaveAttribute("aria-hidden", "true");
+    });
+
+    it("has aria-label when label is provided (meaningful)", () => {
+      const { container } = render(<Icon icon={Home} label="Go home" />);
+      const svg = container.querySelector("svg");
+      expect(svg).toHaveAttribute("aria-label", "Go home");
+    });
+
+    it("is not aria-hidden when label is provided", () => {
+      const { container } = render(<Icon icon={Home} label="Go home" />);
+      const svg = container.querySelector("svg");
+      expect(svg).not.toHaveAttribute("aria-hidden", "true");
+    });
   });
 
-  it("lg size has size-6 class", () => {
-    const { container } = render(<Icon icon={Home} size="lg" />);
-    const svg = container.querySelector("svg");
-    expect(svg?.className).toContain("size-6");
-  });
+  describe("className passthrough", () => {
+    it("applies custom className", () => {
+      const { container } = render(<Icon icon={Home} className="text-red-500" />);
+      expect(container.querySelector("svg")).toHaveClass("text-red-500");
+    });
 
-  it("without label has aria-hidden", () => {
-    const { container } = render(<Icon icon={Home} />);
-    const svg = container.querySelector("svg");
-    expect(svg?.getAttribute("aria-hidden")).toBeTruthy();
-  });
-
-  it("with label has the aria-label attribute with the label value", () => {
-    const { container } = render(<Icon icon={Home} label="Home icon" />);
-    const svg = container.querySelector("svg");
-    expect(svg?.getAttribute("aria-label")).toBe("Home icon");
+    it("preserves size class when custom className is added", () => {
+      const { container } = render(<Icon icon={Home} size="lg" className="text-red-500" />);
+      const svg = container.querySelector("svg");
+      expect(svg).toHaveClass("size-6");
+      expect(svg).toHaveClass("text-red-500");
+    });
   });
 });
