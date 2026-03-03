@@ -136,7 +136,7 @@
   --destructive: oklch(0.65 0.2 25);
   /* Border/Input = brand-border */
   --border: oklch(0.867 0.005 95.0);
-  --input: oklch(0.867 0.005 95.0);
+  --input: oklch(0.78 0.008 95.0);
   /* Ring = brand-red */
   --ring: oklch(0.366 0.15 29.2);
   /* Chart colors — brand-inspired */
